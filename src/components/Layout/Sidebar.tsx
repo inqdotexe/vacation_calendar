@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useStore } from '@/store/useStore'
+import { ColorPickerDialog } from '@/components/People/ColorPickerDialog'
 
 /**
  * Sidebar для управления людьми
@@ -107,18 +108,23 @@ export function Sidebar() {
                         </p>
                       </div>
 
-                      {/* Delete button */}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          deletePerson(person.id)
-                        }}
-                      >
-                        <Trash2 className="w-4 h-4 text-destructive" />
-                      </Button>
+                      {/* Action buttons */}
+                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {/* Color picker */}
+                        <ColorPickerDialog person={person} />
+
+                        {/* Delete button */}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            deletePerson(person.id)
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4 text-destructive" />
+                        </Button>
+                      </div>
                     </div>
 
                     {isSelected && (
