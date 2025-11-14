@@ -5,6 +5,7 @@ import {
   parseISO,
   getDaysBetween,
   formatVacationPeriod,
+  formatISO,
 } from './dateUtils';
 
 /**
@@ -31,7 +32,8 @@ export function getVacationsForDate(
   date: Date | string,
   vacations: VacationPeriod[]
 ): VacationPeriod[] {
-  const dateStr = typeof date === 'string' ? date : date.toISOString().split('T')[0];
+  // ВАЖНО: используем formatISO вместо toISOString() для корректной работы с локальным timezone
+  const dateStr = typeof date === 'string' ? date : formatISO(date);
 
   return vacations.filter((vacation) => {
     return isDateInRange(dateStr, vacation.startDate, vacation.endDate);
@@ -95,7 +97,7 @@ export function findOverlaps(
     const dates = getDatesInRange(vacation.startDate, vacation.endDate);
 
     dates.forEach((date) => {
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = formatISO(date);
 
       // Если уже обработали эту дату, пропускаем
       if (processedDates.has(dateStr)) return;
