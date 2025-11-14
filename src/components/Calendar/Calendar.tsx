@@ -12,9 +12,9 @@ export function Calendar() {
   const months = Array.from({ length: 12 }, (_, i) => i)
 
   return (
-    <div className="space-y-4">
-      {/* Calendar grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div className="space-y-3">
+      {/* Calendar grid - более компактный layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         {months.map((monthIndex) => (
           <CalendarMonth
             key={monthIndex}

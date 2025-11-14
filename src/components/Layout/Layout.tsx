@@ -25,13 +25,13 @@ export function Layout({ children, header, sidebar, footer }: LayoutProps) {
       <div className="flex">
         {/* Sidebar */}
         {sidebar && (
-          <aside className="w-80 border-r bg-card p-4 min-h-[calc(100vh-64px)] overflow-y-auto">
+          <aside className="w-80 border-r bg-card p-3 min-h-[calc(100vh-56px)] overflow-y-auto">
             {sidebar}
           </aside>
         )}
 
         {/* Main content */}
-        <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-x-auto">
+        <main className="flex-1 p-3 md:p-4 lg:p-6 overflow-x-auto">
           {children}
         </main>
       </div>

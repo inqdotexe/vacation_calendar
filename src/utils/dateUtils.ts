@@ -1,6 +1,8 @@
 import {
   format,
   parse,
+  parseISO as dateFnsParseISO,
+  formatISO as dateFnsFormatISO,
   isValid,
   differenceInDays,
   eachDayOfInterval,
@@ -14,6 +16,7 @@ import {
   isSameDay,
   isWithinInterval,
   addDays,
+  startOfDay,
 } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
@@ -33,16 +36,22 @@ export function formatDate(date: Date | string): string {
 
 /**
  * Форматирует дату в ISO формат YYYY-MM-DD
+ * Использует встроенную функцию date-fns для надежности
  */
 export function formatISO(date: Date): string {
-  return format(date, ISO_FORMAT);
+  // Нормализуем к началу дня и форматируем в ISO YYYY-MM-DD
+  const normalized = startOfDay(date);
+  return dateFnsFormatISO(normalized, { representation: 'date' });
 }
 
 /**
  * Парсит ISO строку в Date
+ * Использует встроенную функцию date-fns для надежности
  */
 export function parseISO(isoString: string): Date {
-  return parse(isoString, ISO_FORMAT, new Date());
+  // Встроенная parseISO правильно обрабатывает ISO 8601 строки
+  // и нормализует к началу дня в локальном timezone
+  return startOfDay(dateFnsParseISO(isoString));
 }
 
 /**
@@ -111,18 +120,21 @@ export function getYearNumber(date: Date): number {
 }
 
 /**
- * Получить день недели (0 = воскресенье, 6 = суббота)
+ * Получить день недели (0 = понедельник, 6 = воскресенье) - европейский формат
  */
 export function getDayOfWeek(date: Date): number {
-  return getDay(date);
+  const day = getDay(date);
+  // date-fns getDay: 0=вс, 1=пн, 2=вт, ..., 6=сб
+  // Конвертируем в европейский формат: 0=пн, 1=вт, ..., 6=вс
+  return day === 0 ? 6 : day - 1;
 }
 
 /**
- * Проверяет, является ли день выходным
+ * Проверяет, является ли день выходным (суббота и воскресенье)
  */
 export function isWeekend(date: Date): boolean {
   const day = getDayOfWeek(date);
-  return day === 0 || day === 6; // Воскресенье или суббота
+  return day === 5 || day === 6; // Суббота или воскресенье в европейском формате
 }
 
 /**
@@ -197,9 +209,9 @@ export const MONTH_NAMES = [
 ];
 
 /**
- * Короткие названия дней недели
+ * Короткие названия дней недели (европейский формат: начинается с понедельника)
  */
-export const DAY_NAMES_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+export const DAY_NAMES_SHORT = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
 /**
  * Получить название месяца

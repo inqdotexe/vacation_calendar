@@ -20,53 +20,54 @@ export function Header() {
   const isCurrentYear = selectedYear === currentYear
 
   return (
-    <div className="flex items-center justify-between px-6 py-4">
+    <div className="flex items-center justify-between px-6 py-3">
       {/* Logo and title */}
-      <div className="flex items-center gap-3">
-        <div className="p-2 bg-primary/10 rounded-lg">
-          <Calendar className="w-6 h-6 text-primary" />
+      <div className="flex items-center gap-2.5">
+        <div className="p-1.5 bg-primary/10 rounded-lg">
+          <Calendar className="w-5 h-5 text-primary" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-foreground">Vacation Calendar</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-lg font-bold text-foreground">Vacation Calendar</h1>
+          <p className="text-xs text-muted-foreground">
             {people.length} {people.length === 1 ? 'человек' : 'людей'} • {vacations.length} {vacations.length === 1 ? 'период' : 'периодов'}
           </p>
         </div>
       </div>
 
       {/* Year navigation */}
-      <div className="flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goToPreviousYear}
-          title="Предыдущий год"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </Button>
+      <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={goToPreviousYear}
+            title="Предыдущий год"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </Button>
 
-        <div className="flex items-center gap-2 min-w-[180px] justify-center">
-          <span className="text-2xl font-bold">{selectedYear}</span>
-          {!isCurrentYear && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={goToCurrentYear}
-              className="text-xs"
-            >
-              Текущий год
-            </Button>
-          )}
+          <span className="text-2xl font-bold min-w-[100px] text-center">{selectedYear}</span>
+
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={goToNextYear}
+            title="Следующий год"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </Button>
         </div>
 
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goToNextYear}
-          title="Следующий год"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </Button>
+        {!isCurrentYear && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={goToCurrentYear}
+            className="text-xs"
+          >
+            Текущий год
+          </Button>
+        )}
       </div>
 
       {/* Empty space for balance */}

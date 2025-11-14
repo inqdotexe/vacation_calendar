@@ -21,19 +21,19 @@ export function CalendarMonth({ year, month }: CalendarMonthProps) {
   const emptyDays = Array.from({ length: firstDayOfWeek }, (_, i) => i)
 
   return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base font-semibold">
+    <Card className="overflow-hidden">
+      <CardHeader className="pb-2 pt-3 px-3">
+        <CardTitle className="text-sm font-semibold">
           {getMonthName(month)}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-2">
+      <CardContent className="p-2 pt-0">
         {/* Days of week header */}
-        <div className="grid grid-cols-7 gap-1 mb-1">
+        <div className="grid grid-cols-7 gap-0.5 mb-0.5">
           {DAY_NAMES_SHORT.map((day) => (
             <div
               key={day}
-              className="text-center text-xs font-medium text-muted-foreground py-1"
+              className="text-center text-[10px] font-medium text-muted-foreground py-0.5"
             >
               {day}
             </div>
@@ -41,7 +41,7 @@ export function CalendarMonth({ year, month }: CalendarMonthProps) {
         </div>
 
         {/* Days grid */}
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-7 gap-0.5">
           {/* Empty cells for alignment */}
           {emptyDays.map((i) => (
             <div key={`empty-${i}`} className="aspect-square" />

@@ -113,9 +113,9 @@ export function CalendarDay({ date }: CalendarDayProps) {
         background: createStripedPattern(colors, 8),
       }
     } else {
-      // Один человек - полупрозрачный цвет
+      // Один человек - более насыщенный цвет для лучшей узнаваемости
       return {
-        backgroundColor: addAlpha(colors[0], 0.3),
+        backgroundColor: addAlpha(colors[0], 0.6),
       }
     }
   }, [hasVacations, hasOverlap, peopleOnVacation, isInSelection, selectedPersonId, getPersonById])
@@ -124,12 +124,12 @@ export function CalendarDay({ date }: CalendarDayProps) {
     <div
       onClick={handleDayClick}
       className={`
-        relative aspect-square rounded-md flex items-center justify-center text-sm
+        relative aspect-square rounded-sm flex items-center justify-center text-xs
         cursor-pointer transition-all
         ${isWeekendDay && !isInSelection ? 'bg-muted/30' : 'bg-background'}
-        ${isToday ? 'ring-2 ring-primary font-bold' : ''}
+        ${isToday ? 'ring-1 ring-primary font-bold' : ''}
         ${hasVacations && !isInSelection ? 'hover:opacity-80' : 'hover:bg-accent'}
-        ${isInSelection ? 'ring-2 ring-offset-2' : ''}
+        ${isInSelection ? 'ring-1 ring-offset-1' : ''}
         ${isSelectionStart || isSelectionEnd ? 'scale-105' : ''}
       `}
       style={backgroundStyle}

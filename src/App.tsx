@@ -14,7 +14,7 @@ function App() {
       header={<Header />}
       sidebar={<Sidebar />}
     >
-      <div className="space-y-6">
+      <div className="space-y-4">
         <Calendar />
         <VacationList />
       </div>
